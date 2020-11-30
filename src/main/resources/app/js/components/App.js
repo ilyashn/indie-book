@@ -1,13 +1,12 @@
 import React, {Component} from "react";
-import editor from "./TextEditor.js"
 import Header from "./header/Header";
 import Section from "./header/sections"
-
 import '../../styles/App.css';
-import Books from "./Books";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import RoutingHeader from "./header/RoutingHeader";
+import MainAfterAuth from "./MainAfterAuth";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Books from "./Books";
 
 const sections = [
     new Section("Книги", "/books")
@@ -16,12 +15,23 @@ const sections = [
 class App extends Component {
     render() {
         return (
-            <React.Fragment>
-                <CssBaseline />
-                <Container maxWidth="lg">
-                    <RoutingHeader title="Indie Book" sections={sections}/>
-                </Container>
-            </React.Fragment>
+            <Router>
+                <React.Fragment>
+                    <CssBaseline/>
+                    <Header title="Indie Book"/>
+                    <Container>
+                        <MainAfterAuth/>
+                    </Container>
+                </React.Fragment>
+                <Switch>
+                    <Route path="/f/books">
+                        <Books/>
+                    </Route>
+                    <Route path="/f/home">
+                        <MainAfterAuth/>
+                    </Route>
+                </Switch>
+            </Router>
         );
     }
 }
